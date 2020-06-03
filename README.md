@@ -1,4 +1,12 @@
 # headless-linux-server-cheatsheets
+🐧 istg i'm never searching for how to mount a drive w proper permissions ever again
+
+## Table of Contents
+1. [Drive Management](#drive-management)
+    1. [Mounting a(n) (external) drive's partition](#mounting-an-external-drives-partition)
+    2. [Unmounting a(n) (external) drive](#unmounting-an-external-drive)
+
+---
 
 ## Drive Management
 
