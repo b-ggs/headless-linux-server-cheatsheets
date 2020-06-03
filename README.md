@@ -78,7 +78,7 @@ sudo umount /dev/sdb2
 
 ## Display Management
 
-Specifically for laptops used as servers or all-in-ones
+Specifically for laptops or all-in-ones used as servers
 
 _When used over SSH, make sure to set the `DISPLAY` environment variable to `:0`_
 
@@ -95,7 +95,7 @@ eDP-1 connected primary 1366x768+0+0 (normal left inverted right x axis y axis) 
 HDMI-1 disconnected (normal left inverted right x axis y axis)
 ```
 
-In this case, my laptop's internal display is `eDP-1`
+In this case, my device's internal display is `eDP-1`
 
 #### Turn off the display
 
@@ -106,5 +106,5 @@ DISPLAY=:0 xrandr --output eDP-1 --off
 #### Turn on the display
 
 ```bash
-DISPLAY=:0 xrandr --output eDP-1 --on
+DISPLAY=:0 xrandr --output eDP-1 --auto
 ```
