@@ -5,6 +5,8 @@
 1. [Drive Management](#drive-management)
     1. [Mounting a(n) (external) drive's partition](#mounting-an-external-drives-partition)
     2. [Unmounting a(n) (external) drive](#unmounting-an-external-drive)
+2. [Display Management](#display-management)
+    1. [Switching the internal display on and off](#switching-the-internal-display-on-and-off)
 
 ---
 
@@ -72,4 +74,37 @@ sdb      8:16   0  3.7T  0 disk
 
 ```bash
 sudo umount /dev/sdb2
+```
+
+## Display Management
+
+Specifically for laptops used as servers or all-in-ones
+
+_When used over SSH, make sure to set the `DISPLAY` environment variable to `:0`_
+
+### Switching the internal display on and off
+
+#### Look for the output in `xrandr -q`
+
+```bash
+belford@gibson:/$ DISPLAY=:0 xrandr -q
+Screen 0: minimum 320 x 200, current 1366 x 768, maximum 16384 x 16384
+eDP-1 connected primary 1366x768+0+0 (normal left inverted right x axis y axis) 256mm x 144mm
+   1366x768      60.00*+
+   ...
+HDMI-1 disconnected (normal left inverted right x axis y axis)
+```
+
+In this case, my laptop's internal display is `eDP-1`
+
+#### Turn off the display
+
+```bash
+DISPLAY=:0 xrandr --output eDP-1 --off
+```
+
+#### Turn on the display
+
+```bash
+DISPLAY=:0 xrandr --output eDP-1 --on
 ```
