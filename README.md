@@ -5,6 +5,7 @@
 1. [Drive Management](#drive-management)
     1. [Mounting a(n) (external) drive's partition](#mounting-an-external-drives-partition)
     2. [Unmounting a(n) (external) drive](#unmounting-an-external-drive)
+    3. [Creating an encrypted disk image](#creating-an-encrypted-disk-image)
 2. [Display Management](#display-management)
     1. [Switching the internal display on and off](#switching-the-internal-display-on-and-off)
 
@@ -75,6 +76,57 @@ sdb      8:16   0  3.7T  0 disk
 ```bash
 sudo umount /dev/sdb2
 ```
+
+### Creating an encrypted disk image
+
+#### Install cryptsetup from the package manager
+
+```bash
+sudo apt install -y cryptsetup
+```
+
+#### Create an empty file to be used as the disk image
+
+Either of these will create a 32 GB image
+
+```bash
+fallocate -l 32G /path/to/enc.img
+# or
+dd if=/dev/urandom of=/path/to/enc.img bs=1G seek=32 count=0
+```
+
+#### Initialize the LUKS container on the disk image
+
+You will be prompted for a passphrase
+
+```bash
+sudo cryptsetup -y luksFormat /path/to/enc.img
+```
+
+
+#### Open the LUKS container and map it to a volume
+
+```bash
+sudo cryptsetup luksOpen /path/to/enc.img enc
+```
+
+The volume will be available at `/dev/mapper/enc`
+
+#### Write a filesystem to the volume
+
+```bash
+sudo mkfs.ext4 /dev/mapper/encVolume
+```
+
+#### Mount the volume and fix permissions
+
+```bash
+sudo mkdir -p /mnt/enc
+sudo mount -t ext4 /dev/mapper/enc /mnt/enc
+sudo chown -R $USER /mnt/enc 
+```
+
+The volume will be mounted to `/mnt/enc`
 
 ## Display Management
 
